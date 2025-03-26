@@ -79,7 +79,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-// Add this new endpoint
+
 export const getMe = async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
