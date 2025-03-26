@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function testMongoDb(){
+async function testPostgresDb(){
   try{
     await prisma.$connect();
       }
@@ -14,5 +14,5 @@ async function testMongoDb(){
 process.on('beforeExit', async () => {
   await prisma.$disconnect();
 });
-testMongoDb()
+testPostgresDb()
 export default prisma;
