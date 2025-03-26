@@ -15,9 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('User state changed:', user);
-  }, [user]);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -25,9 +22,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const response = await api.get('/auth/me');
-         // console.log('Full verification response:', response);
-          
-          // Handle different response structures
+         
           const userData = response.data?.user || 
                           response.data?.data?.user || 
                           response.data?.data;
@@ -37,7 +32,7 @@ export const AuthProvider = ({ children }) => {
             throw new Error('User data not found in response');
           }
   
-          console.log('Extracted user data:', userData);
+        
           setUser(userData);
           setIsAuthenticated(true);
           navigate('/dashboard');
@@ -53,9 +48,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/auth/login', { email, password });
-     // console.log('Full login response:', response.data); // Debug log
-  
-      // Extract from your actual response structure
+    
       const token = response.data.token;
       const userData = response.data.data?.user;
   
@@ -72,7 +65,7 @@ export const AuthProvider = ({ children }) => {
       setUser(userData);
       setIsAuthenticated(true);
       
-     // console.log('Login successful for:', userData.email);
+    
       navigate('/dashboard');
       
     } catch (error) {
@@ -84,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (formData) => {
     try {
       const { data } = await api.post('/auth/signup', formData);
-      //console.log('Signup response:', data);
+      
       
       if (data && data.token && data.user) {
         setToken(data.token);
